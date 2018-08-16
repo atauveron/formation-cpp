@@ -1,0 +1,55 @@
+% -*- ispell-dictionary: "french" -*-
+
+\begin{frame}[fragile]{Structures et objets}
+  Définir de nouveau types
+  \begin{lstlisting}
+    struct atom {
+      int atomic; // Atomic number
+      int mass; // Mass number
+    };
+
+    atom carbon12;
+    carbon12.atomic = 6;
+    carbon12.mass = 12;
+  \end{lstlisting}
+
+  Membres d'une fonction : variables (attributs), fonctions (méthodes)
+\end{frame}
+
+\begin{frame}[fragile]{Structures et objets}
+  \begin{lstlisting}
+    class Atom {
+    private:
+      int atomic;
+      int mass;
+    public:
+      Atom(int a, int m) {
+        atomic = a; mass = m;
+      }
+    };
+
+    atom carbon12 (6,12);
+    carbon12.mass = 13; // Forbidden!
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Sructures et objets}
+  \textcolor{red}{Les attributs d'une classe sont toujours \textbf{privés}.}
+
+  Les accès se font donc grâce aux méthodes de la classe.
+\end{frame}
+
+\begin{frame}[fragile]{Un objet minimaliste}
+  \begin{lstlisting}
+    class A {
+    private:
+      // attributes
+      // private methods
+    public:
+      A(...) {...} // constructor
+      ~A(...) {...} // destructor
+      A(A &a) {...} // copy constructor
+      // public methods
+    };
+  \end{lstlisting}
+\end{frame}
