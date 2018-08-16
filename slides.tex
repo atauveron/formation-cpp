@@ -1,0 +1,99 @@
+% -*- ispell-dictionary: "french" -*-
+
+\documentclass{beamer}
+\usetheme{metropolis}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Listes sur 2 colonnes
+\usepackage{multicol}
+
+% Tableaux
+\usepackage{array}
+\usepackage{multirow}
+
+% Images, couleurs
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+% Mathématiques
+\usepackage{mathtools,amssymb,stmaryrd}
+\numberwithin{equation}{section}
+% Suite
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\newcommand{\dtemp}{\frac{d}{dt}}
+\newcommand{\dpart}[2][]{\frac{\partial #1}{\partial #2}}
+\newcommand{\inv}[1]{\frac{1}{#1}}
+\newcommand{\card}[1]{\text{card}\,{#1}}
+
+% Code
+\usepackage{listings}
+
+% Références
+\usepackage{hyperref}
+
+% Titre
+\title{Formation \texttt{C++}}
+\date{Septembre 2018}
+\author[A.~\textsc{Tauveron}]{Aimery~\textsc{Tauveron-\,-Jalenques}}
+\institute{ViaRézo}
+
+
+
+\begin{document}
+
+% Configuration pour listings
+\lstset{frame=single, frameround=tttt, rulecolor=\color{blue}}
+\lstset{breaklines=true, showstringspaces=false}
+\lstset{language=[11]C++}
+
+\frame{\titlepage}
+
+% Logo VR
+\addtobeamertemplate{frametitle}{}{
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north east,yshift=0pt] at (current page.north east) {\includegraphics[height=0.75cm]{VR_vertical.png}};
+  \end{tikzpicture}
+}
+
+\frame{\tableofcontents}
+
+\section{Introduction}
+\label{sec:introduction}
+
+\begin{frame}{Introduction}
+  \begin{itemize}
+    \item \texttt{C++} 101
+    \item POO et RAII
+    \item \texttt{C++}11
+    \item Introduction à la \texttt{STL}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Introduction}
+  Ce n'est pas :
+  \begin{itemize}
+    \item une formation C (pas de \texttt{(int*)malloc(...)}),
+    \item une formation POO,
+    \item un tutoriel.
+  \end{itemize}
+\end{frame}
+
+
+\section{\texttt{C++} 101}
+\label{sec:cpp101}
+\input{cpp101.tex}
+
+
+\section{Conclusion}
+\label{sec:conclusion}
+\begin{frame}{Ressources}
+  \begin{itemize}
+    \item \href{https://stackoverflow.com/}{Stack Overflow}
+    \item \href{http://www.cplusplus.com/}{cplusplus.com}
+  \end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,230 @@
+% -*- ispell-dictionary: "french" -*-
+
+\begin{frame}[fragile]{Hello world!}
+  \begin{lstlisting}
+    #include <iostream>
+    
+    int main () {
+      std::cout << "Hello world!\n";
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Compilation}
+  Il faut compiler !
+  \begin{itemize}
+    \item GCC, Clang, Microsoft Visual C++
+  \end{itemize}
+
+  \begin{lstlisting}[language=bash]
+    g++ main.cpp
+  \end{lstlisting}
+
+  On peut exécuter :
+  \begin{lstlisting}
+    ./a.out
+    Hello world!
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Compilation}
+  \begin{lstlisting}[language=bash]
+    g++ -O3 -Wall main.cpp -o hello
+  \end{lstlisting}
+
+  C'est mieux !
+  \begin{lstlisting}
+    ./hello
+    Hello world!
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Définition de variables}
+  \begin{lstlisting}
+    #include <iostream>
+
+    int main () {
+      int a;
+      int b (0);
+      int c = 0;
+      std::cout << "a is: ";
+      std::cin >> a;
+      b = 2*a;
+      std::cout << "a is: " << a << "\n";
+      std::cout << "b is: " << b << "\n";
+      std::cout << "2*a is: " << 2*a << "\n";
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Les variables}
+  Des types :
+  \begin{itemize}
+  \item numériques : \texttt{int} (\texttt{unsigned}, \texttt{long}, \texttt{short}), \texttt{float}, \texttt{double}
+  \item non-numériques : \texttt{char}, \texttt{bool}
+  \item \texttt{void}
+  \item autres (objets\dots{})
+  \end{itemize}
+
+  Trois catégories de variables :
+  \begin{itemize}
+  \item variables : \textit{type} \textit{var}
+  \item références : \textit{type} \texttt{\&}\textit{var}
+  \item pointeurs : \textit{type} \texttt{*}\textit{var}
+  \end{itemize}
+
+  Un qualificateur : \texttt{const}
+\end{frame}
+
+\begin{frame}[fragile]{Les variables}
+  \begin{lstlisting}
+    int main () {
+      int a (2);
+      int b (a);
+      int &c (a);
+      int *d = a;
+      std::cout << "a is: " << a << "\n";
+      std::cout << "b is: " << b << "\n";
+      std::cout << "c is: " << c << "\n";
+      std::cout << "d is: " << d << "\n";
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les variables}
+  \begin{lstlisting}
+    int main () {
+      int a (2);
+      int b (a);
+      int &c (a);
+      int *d = &a; // l'adresse memoire de a
+      std::cout << "a is: " << a << "\n";
+      std::cout << "b is: " << b << "\n";
+      std::cout << "c is: " << c << "\n";
+      std::cout << "d is: " << d << "\n";
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les variables}
+  \begin{lstlisting}
+    int main () {
+      int a (2);
+      int b (a);
+      int &c (a);
+      int *d = &a; // l'adresse memoire de a
+      std::cout << "a is: " << a << "\n";
+      std::cout << "b is: " << b << "\n";
+      std::cout << "c is: " << c << "\n";
+      std::cout << "d is: " << *d << "\n"; /* la valeur pointee par d */
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les tableaux}
+  \begin{lstlisting}
+    int a [8];
+    char w [256];
+    a[0] = 0;
+    a[1] = 4;
+    std::cout << a[0];
+  \end{lstlisting}
+
+  \begin{itemize}
+  \item Hérités de C
+  \item Indexés de 0 à $n-1$
+  \item Des pointeurs $\implies$ pas de vérification des indices
+  \end{itemize}
+
+  \begin{lstlisting}
+    int *b = a; // Correct
+    a[11] = 32; // Undefined behaviour, hi sha
+  \end{lstlisting}  
+\end{frame}
+
+\begin{frame}[fragile]{Les fonctions}
+  Définition :
+  \begin{lstlisting}[escapechar=ù]
+    ù\textit{return\_type}ù ù\textit{function\_name}ù (ù\textit{arguments}ù) {
+      // code
+      return ù\textit{return\_value}ù
+    }
+  \end{lstlisting}
+
+  Appel :
+  \begin{lstlisting}[escapechar=ù]
+    ù\textit{variable}ù = ù\textit{function\_name}ù (ù\textit{arguments}ù);
+  \end{lstlisting}
+
+  Surcharge de fonctions possible
+  
+\end{frame}
+
+\begin{frame}[fragile]{La fonction \texttt{main}}
+  \begin{lstlisting}
+    int main (int argc, char **argv) {
+      // code
+      return 0;
+    }
+  \end{lstlisting}
+ ou bien
+  \begin{lstlisting}
+    int main (int argc, char *argv[]) {
+      // code
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Des opérateurs}
+  Dans le désordre :
+  \begin{itemize}
+  \item arithmétiques : +, -, *, /, \%
+  \item de comparaison : ==, !=, <, >, <=, >=
+  \item logiques : \&\&, ||, !
+  \item binaires : \&, |, \^{}, \~{}
+  \item mémoire : \&, *
+  \end{itemize}
+
+  En \texttt{C++}, le contexte est important !
+\end{frame}
+
+\begin{frame}[fragile]{Les \texttt{namespace}s}
+  Pourquoi \texttt{std::cout} et non \texttt{cout} ? \texttt{int} et non \texttt{std::int} ?
+  
+  \textit{int} est dans le \texttt{namespace} global, \texttt{cout} dans le \texttt{namespace} \texttt{std}.
+  
+  \texttt{std} contient la bibliothèque standard.
+
+  On peut utiliser :
+  \begin{lstlisting}
+    using namespace std;
+    
+    int main () {
+      cout << "Hello world!\n";
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les \texttt{namespace}s}
+  \begin{lstlisting}
+    namespace foo {
+      bool var (true);
+    }
+
+    namespace bar {
+      double var (1.0);
+    }
+    int main () {
+      std::cout << "foo::var is:" << foo:var << "\n";
+      std::cout << "bar::var is:" << bar:var << "\n";
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
