@@ -7,13 +7,25 @@
       int atomic; // Atomic number
       int mass; // Mass number
     };
+  \end{lstlisting}
 
+  Membres d'une fonction :
+  \begin{itemize}
+  \item variables (attributs),
+  \item fonctions (méthodes)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Structures et objets}
+  \begin{lstlisting}
     atom carbon12;
     carbon12.atomic = 6;
     carbon12.mass = 12;
-  \end{lstlisting}
 
-  Membres d'une fonction : variables (attributs), fonctions (méthodes)
+    atom *oxygen16 = new atom;
+    oxygen16->atomic = 8;
+    oxygen16->mass = 16;
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Structures et objets}

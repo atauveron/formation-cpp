@@ -78,7 +78,7 @@
   Un qualificateur : \texttt{const}
 \end{frame}
 
-\begin{frame}[fragile]{Les variables}
+\begin{frame}[fragile]{Les variables statiques}
   \begin{lstlisting}
     int main () {
       int a (2);
@@ -94,7 +94,7 @@
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Les variables}
+\begin{frame}[fragile]{Les variables statiques}
   \begin{lstlisting}
     int main () {
       int a (2);
@@ -110,7 +110,7 @@
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Les variables}
+\begin{frame}[fragile]{Les variables statiques}
   \begin{lstlisting}
     int main () {
       int a (2);
@@ -147,6 +147,118 @@
   \end{lstlisting}  
 \end{frame}
 
+\begin{frame}[fragile]{Cycle de vie des variables statiques}
+  \begin{itemize}
+  \item Création à la déclaration
+  \item Destruction à la fin du bloc \texttt{\{\dots\}}
+  \end{itemize}
+
+  \begin{lstlisting}
+    int main () {
+      // maybe some code
+      int a (0);
+      unsigned int b;
+      {
+        double c (.5);
+      }
+      // c doesn't exist here
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les variables dynamiques}
+  Deux couples d'opérateurs : \texttt{new} et \texttt{delete}, \texttt{free} et \texttt{malloc}
+  \begin{lstlisting}
+    int main () {
+      int *a = new int(2);
+      delete a;
+      a = nullptr;
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les variables dynamiques}
+  \begin{lstlisting}
+    int main () {
+      int *a;
+      {
+        int *b = new int(4);
+        a = b;
+      }
+      // b doesn't exist here
+      // but a does
+      std::cout << "a is: " << *a << "\n";
+      delete a;
+      a = nullptr;
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les structures de contrôle}
+  \begin{lstlisting}[escapechar=ù]
+    if ( ù\textit{condition}ù ) {
+      // code
+    } else if ( ù\textit{condition}ù ) {
+      // code
+    } else {
+      // code
+    }
+  \end{lstlisting}
+
+  \begin{lstlisting}[escapechar=ù]
+    if ( ù\textit{condition}ù )
+      // single line of code
+    else
+      // single line of code
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les structures de contrôle}
+  \begin{lstlisting}[escapechar=ù]
+    while ( ù\textit{condition}ù ) {
+      // code
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les structures de contrôle}
+  \begin{lstlisting}[escapechar=ù]
+    for ( ù\textit{initialisation}ù ; ù\textit{condition}ù ; ù\textit{increase}ù ) {
+      // code
+    }
+  \end{lstlisting}
+
+  \begin{lstlisting}
+    for ( int i=0 ; i<10 ; ++i ) {
+      // code
+    }
+  \end{lstlisting}
+  \begin{lstlisting}
+    for ( n=0, i=100 ; n!=i ; ++n, --i ) {
+      // code
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les structures de contrôle}
+  \begin{lstlisting}[escapechar=ù]
+    switch ( ù\textit{expression}ù ) {
+      case ù\textit{constant}ù:
+        // code
+        break;
+      case ù\textit{constant}ù:
+        // code
+        break;
+      default:
+        //code
+        
+    }
+  \end{lstlisting}
+\end{frame}
+
 \begin{frame}[fragile]{Les fonctions}
   Définition :
   \begin{lstlisting}[escapechar=ù]
@@ -162,7 +274,6 @@
   \end{lstlisting}
 
   Surcharge de fonctions possible
-  
 \end{frame}
 
 \begin{frame}[fragile]{La fonction \texttt{main}}
