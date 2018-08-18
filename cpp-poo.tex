@@ -47,8 +47,6 @@
 
 \begin{frame}{Sructures et objets}
   \textcolor{red}{Les attributs d'une classe sont toujours \textbf{privés}.}
-
-  Les accès se font donc grâce aux méthodes de la classe.
 \end{frame}
 
 \begin{frame}[fragile]{Un objet minimaliste}
@@ -64,4 +62,188 @@
       // public methods
     };
   \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Un exemple}
+  \begin{lstlisting}
+    class GaussInt {
+    private:
+      int real;
+      int imag;
+    public:
+      GaussInt (int a=0, int b=0): real(a), imag(b) {}
+      ~GaussInt () {}
+      GaussInt (GaussInt &a): real(a.real), imag(a.imag) {}
+      double norm () { return std::sqrt(real*real + imag*imag); }
+    };
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Un exemple}
+  \begin{lstlisting}
+    int main () {
+      GaussInt a;
+      GaussInt b (4,3);
+      GaussInt c (b);
+      GaussInt d = a;
+      std::cout << "Norm of c: " << c.norm() << std::endl;
+      std::cout << "Norm of d: " << d.norm() << std::endl;
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Les possibilités}
+  \begin{itemize}
+  \item Surcharger les opérateurs
+  \item Accès aux membres : \texttt{private}, \texttt{protected} et \texttt{public}
+  \item Héritage (multiple)
+  \item Méthodes \texttt{const}, attributs \texttt{static} et \texttt{mutable}
+  \item Fonctions et classes amies (\texttt{friend})
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Séparation en fichiers}
+  \begin{itemize}
+  \item Fichiers \textit{header} (extension \texttt{h} ou \texttt{hpp}) : déclarations
+  \item Fichiers source (extension \texttt{cpp}) : définitions
+  \end{itemize}
+
+  On inclut des fichiers \textit{header} dans les fichiers source ou dans d'autres fichiers \textit{header}.
+\end{frame}
+
+\begin{frame}[fragile]{Séparation en fichiers}
+  \texttt{GaussInt.h}
+  \begin{lstlisting}
+    #ifndef GaussInt_included
+    #define GaussInt_included
+    class GaussInt {
+    private:
+      int real;
+      int imag;
+    public:
+      GaussInt (int a=0, int b=0);
+      ~GaussInt ();
+      GaussInt (GaussInt &);
+      double norm ();
+    };
+    #endif
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Séparation en fichiers}
+  \texttt{GaussInt.cpp}
+  \begin{lstlisting}
+    #include "GaussInt.h"
+    #include <cmath>
+
+    GaussInt::GaussInt (int a=0, int b=0): real(a), imag(b) {}
+    GaussInt::~GaussInt () {}
+    GaussInt::GaussInt (GaussInt &a) real(a.real), imag(a.imag) {}
+    double GaussInt::norm () {
+      return std::sqrt(real*real + imag*imag);
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Séparation en fichiers}
+  \begin{lstlisting}
+    #include <iostream>
+    #include "GaussInt.h"
+    int main () {
+      GaussInt a;
+      GaussInt b (4,3);
+      GaussInt c (b);
+      GaussInt d = a;
+      std::cout << "Norm of c: " << c.norm() << std::endl;
+      std::cout << "Norm of d: " << d.norm() << std::endl;
+      return 0;
+    }
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Compilation}
+  \begin{lstlisting}[language=bash]
+    g++ -Wall -c GaussInt.cpp -o GaussInt.o
+    g++ -Wall -c main.cpp -o main.o
+    g++ -Wall main.o GaussInt.o -o gauss.out
+  \end{lstlisting}
+
+  On peut exécuter :
+  \begin{lstlisting}
+    ./gauss.out
+    Norm of c: 5
+    Norm of d: 0
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les \textit{template}s}
+  \begin{lstlisting}
+    template <typename T> bool isPositive (T a) {
+      if (a>=0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  \end{lstlisting}
+
+  Mot-clé : \texttt{typename} ou \texttt{class}
+\end{frame}
+
+\begin{frame}[fragile]{Les \textit{template}s}
+  \begin{lstlisting}
+    template <typename T> class Complex {
+    private:
+      T real;
+      T imag;
+    public:
+      Complex (int a=0, int b=0);
+      ~ Complex();
+      Complex (Complex<T> &);
+      double norm ();
+    };
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les \textit{template}s}
+  \begin{lstlisting}
+    int n = 4;
+    double x = 2.5;
+    isPositive(n);
+    isPositive(x);
+    isPositive<double>(3.0);
+  \end{lstlisting}
+
+  \begin{lstlisting}
+    Complex<double> z (3, 5.5);
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Les \textit{template}s}
+  \begin{itemize}
+  \item  Des patrons de classe ou de fonction pour générer automatiquement du code
+  \item Plusieurs paramètres, avec des valeurs par défaut
+  \item Spécialisation de \textit{template}s
+  \end{itemize}
+
+  Déclaration et définition \textbf{dans le même fichier} $\implies$ dans un \textit{header}
+\end{frame}
+
+\begin{frame}{Une application de la POO : RAII}
+  \begin{itemize}
+  \item Fuites : mémoire, fichiers, connections\dots{}
+  \item \texttt{gdb}, \texttt{valgrind}\dots{}
+  \item En cas d'interruption du programme (par exemple \texttt{exception})?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Une application de la POO : RAII}
+  \begin{itemize}
+  \item RAII : Ressource Acquisition Is Initialisation
+  \item Encapsulation des ressources dans des objets
+  \item[$\rightarrow$] Initialisation dans le constructeur, nettoyage dans le destructeur
+  \item[$\rightarrow$] Appel du destructeur garantit par le langage
+  \item[$\rightarrow$] Exception renvoyée par un destructeur : \textit{undefined behaviour}
+  \end{itemize}
 \end{frame}
