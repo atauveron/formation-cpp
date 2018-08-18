@@ -1,5 +1,20 @@
 % -*- ispell-dictionary: "french" -*-
 
+\begin{frame}[fragile]{Les \texttt{string}s}
+  \texttt{string} : chaîne de caractères améliorée
+  \begin{lstlisting}
+    #include <string>
+
+    int main () {
+      std::string str ("some");
+      std::string str2 ("text");
+      str.append(str2);
+      const char *cstr (str.c_str());
+      return 0;
+    }
+    \end{lstlisting}
+\end{frame}
+
 \begin{frame}[fragile]{Structures et objets}
   Définir de nouveau types
   \begin{lstlisting}

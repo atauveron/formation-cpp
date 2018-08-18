@@ -1,0 +1,61 @@
+% -*- ispell-dictionary: "french" -*-
+
+\begin{frame}{Un peu d'histoire}
+  \begin{description}
+  \item[1972 :] première version de \texttt{C}
+  \item[1983 :] première version de \texttt{C++} (alors \texttt{C with classes})
+  \item[1989 :] premier standard pour \texttt{C} (\texttt{ANSI C})
+  \item[1998 :] premier standard pour \texttt{C++}
+  \item[2003 :] norme \texttt{C++03}
+  \item[2011 :] norme \texttt{C++11} $\leftarrow$ début du \texttt{C++} moderne
+  \item[2014 :] norme \texttt{C++14}
+  \item[2017 :] norme \texttt{C++17}
+  \end{description}
+\end{frame}
+
+\begin{frame}[fragile]{De nouveaux tableaux}
+  \begin{lstlisting}
+    std::vector<int> a;
+    a.push_back(10);
+    a[0];
+
+    std::vector<int> b (5);
+    b.pop_back();
+    size_t b_size = b.size(); // now 4
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{De nouveaux tableaux}
+  \begin{lstlisting}
+    std::array<int,5> a;
+    a[1] = 2;
+    size_t a_size = a.size();
+
+    a[6] = 4; // runtime error
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Une nouvelle boucle \texttt{for}}
+  \begin{lstlisting}
+    std::array<int,5> a;
+    // code
+    for (int &it : a) {
+      // code
+    }
+  \end{lstlisting}
+  \texttt{range for} pour tous les itérables
+  \begin{itemize}
+  \item \texttt{begin} et \texttt{end} sur l'objet
+  \item \texttt{operator!=}, \texttt{operator++} et \texttt{operator*} sur l'itérateur
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Le type \texttt{auto}}
+  \texttt{auto} : inférence de type
+  
+  \begin{lstlisting}[escapechar=ù]
+    for (auto &iterator : ù\textit{iterable}ù) {
+      // code
+    }
+  \end{lstlisting}
+\end{frame}
