@@ -1,6 +1,6 @@
 % -*- ispell-dictionary: "french" -*-
 
-\begin{frame}{Un peu d'histoire}
+\begin{frame}[fragile]{Un peu d'histoire}
   \begin{description}
   \item[1972 :] première version de \texttt{C}
   \item[1983 :] première version de \texttt{C++} (alors \texttt{C with classes})
@@ -11,6 +11,19 @@
   \item[2014 :] norme \texttt{C++14}
   \item[2017 :] norme \texttt{C++17}
   \end{description}
+  \begin{lstlisting}[language=bash]
+    --std=c++11
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{De nouveaux tableaux}
+  \begin{lstlisting}
+    std::array<int,5> a;
+    a[1] = 2;
+    size_t a_size = a.size();
+
+    a[6] = 4; // runtime error
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{De nouveaux tableaux}
@@ -22,16 +35,6 @@
     std::vector<int> b (5);
     b.pop_back();
     size_t b_size = b.size(); // now 4
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{De nouveaux tableaux}
-  \begin{lstlisting}
-    std::array<int,5> a;
-    a[1] = 2;
-    size_t a_size = a.size();
-
-    a[6] = 4; // runtime error
   \end{lstlisting}
 \end{frame}
 

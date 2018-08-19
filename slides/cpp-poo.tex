@@ -71,9 +71,9 @@
       // attributes
       // private methods
     public:
-      A(...) {...} // constructor
-      ~A(...) {...} // destructor
-      A(A &a) {...} // copy constructor
+      ~A (...) {...} // destructor
+      A (const A &a) {...} // copy constructor
+      A& operator= (const A &a) {...} // copy assignment operator
       // public methods
     };
   \end{lstlisting}
@@ -139,7 +139,8 @@
     public:
       GaussInt (int a=0, int b=0);
       ~GaussInt ();
-      GaussInt (GaussInt &);
+      GaussInt (const GaussInt &);
+      GaussInt& operator= (const GaussInt &);
       double norm ();
     };
     #endif
@@ -153,7 +154,17 @@
     #include <cmath>
     GaussInt::GaussInt (int a=0, int b=0): m_real(a), m_imag(b) {}
     GaussInt::~GaussInt () {}
-    GaussInt::GaussInt (GaussInt &a) m_real(a.m_real), m_imag(a.m_imag) {}
+    GaussInt::GaussInt (const GaussInt &a): m_real(a.m_real), m_imag(a.m_imag) {}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Séparation en fichiers}
+  \texttt{GaussInt.cpp} suite
+  \begin{lstlisting}
+    GaussInt& GaussInt::operator= (const GaussInt &a) {
+      m_real = a.m_real; m_imag = a.m_imag;
+      return *this;
+    }
     double GaussInt::norm () {
       return std::sqrt(m_real*m_real + m_imag*m_imag);
     }
@@ -166,9 +177,9 @@
     #include "GaussInt.h"
     int main () {
       GaussInt a;
-      GaussInt b (4,3);
-      GaussInt c (b);
-      GaussInt d = a;
+      GaussInt b (4,3); GaussInt c (b);
+      GaussInt d; d = c;
+      std::cout << "Norm of a: " << a.norm() << std::endl;
       std::cout << "Norm of c: " << c.norm() << std::endl;
       std::cout << "Norm of d: " << d.norm() << std::endl;
       return 0;
@@ -186,8 +197,9 @@
   On peut exécuter :
   \begin{lstlisting}
     ./gauss.out
+    Norm of a: 0
     Norm of c: 5
-    Norm of d: 0
+    Norm of d: 5
   \end{lstlisting}
 \end{frame}
 
@@ -213,8 +225,9 @@
       T m_imag;
     public:
       complex (const T &a = T(), const T &b = T());
-      ~ complex();
+      ~complex();
       complex (const complex<T> &);
+      complex& operator= (const complex<T> &);
       double norm ();
     };
   \end{lstlisting}
