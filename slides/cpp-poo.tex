@@ -47,16 +47,16 @@
   \begin{lstlisting}
     class Atom {
     private:
-      int atomic;
-      int mass;
+      int m_atomic;
+      int m_mass;
     public:
       Atom(int a, int m) {
-        atomic = a; mass = m;
+        m_atomic = a; m_mass = m;
       }
     };
 
     atom carbon12 (6,12);
-    carbon12.mass = 13; // Forbidden!
+    carbon12.m_mass = 13; // Forbidden!
   \end{lstlisting}
 \end{frame}
 
@@ -83,13 +83,13 @@
   \begin{lstlisting}
     class GaussInt {
     private:
-      int real;
-      int imag;
+      int m_real;
+      int m_imag;
     public:
-      GaussInt (int a=0, int b=0): real(a), imag(b) {}
+      GaussInt (int a=0, int b=0): m_real(a), m_imag(b) {}
       ~GaussInt () {}
-      GaussInt (GaussInt &a): real(a.real), imag(a.imag) {}
-      double norm () { return std::sqrt(real*real + imag*imag); }
+      GaussInt (GaussInt &a): m_real(a.m_real), m_imag(a.m_imag) {}
+      double norm () { return std::sqrt(m_real*m_real + m_imag*m_imag); }
     };
   \end{lstlisting}
 \end{frame}
@@ -134,8 +134,8 @@
     #define GaussInt_included
     class GaussInt {
     private:
-      int real;
-      int imag;
+      int m_real;
+      int m_imag;
     public:
       GaussInt (int a=0, int b=0);
       ~GaussInt ();
@@ -151,12 +151,11 @@
   \begin{lstlisting}
     #include "GaussInt.h"
     #include <cmath>
-
-    GaussInt::GaussInt (int a=0, int b=0): real(a), imag(b) {}
+    GaussInt::GaussInt (int a=0, int b=0): m_real(a), m_imag(b) {}
     GaussInt::~GaussInt () {}
-    GaussInt::GaussInt (GaussInt &a) real(a.real), imag(a.imag) {}
+    GaussInt::GaussInt (GaussInt &a) m_real(a.m_real), m_imag(a.m_imag) {}
     double GaussInt::norm () {
-      return std::sqrt(real*real + imag*imag);
+      return std::sqrt(m_real*m_real + m_imag*m_imag);
     }
   \end{lstlisting}
 \end{frame}
@@ -208,14 +207,14 @@
 
 \begin{frame}[fragile]{Les \textit{template}s}
   \begin{lstlisting}
-    template <typename T> class Complex {
+    template <typename T> class complex {
     private:
-      T real;
-      T imag;
+      T m_real;
+      T m_imag;
     public:
-      Complex (int a=0, int b=0);
-      ~ Complex();
-      Complex (Complex<T> &);
+      complex (const T &a = T(), const T &b = T());
+      ~ complex();
+      complex (const complex<T> &);
       double norm ();
     };
   \end{lstlisting}
@@ -231,7 +230,7 @@
   \end{lstlisting}
 
   \begin{lstlisting}
-    Complex<double> z (3, 5.5);
+    complex<double> z (3, 5.5);
   \end{lstlisting}
 \end{frame}
 
