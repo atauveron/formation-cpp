@@ -143,7 +143,7 @@
 
   \begin{lstlisting}
     int *b = a; // Correct
-    a[11] = 32; // Undefined behaviour, hi sha
+    a[11] = 32; // Undefined behaviour
   \end{lstlisting}  
 \end{frame}
 
@@ -170,12 +170,16 @@
 \begin{frame}[fragile]{Les variables dynamiques}
   Deux couples d'opérateurs : \texttt{new} et \texttt{delete}, \texttt{free} et \texttt{malloc}
   \begin{lstlisting}
-    int main () {
       int *a = new int(2);
       delete a;
       a = nullptr;
-      return 0;
-    }
+  \end{lstlisting}
+
+  Pour les tableaux : \texttt{new[]} et \texttt{delete[]}
+  \begin{lstlisting}
+      int *a = new int[4];
+      delete[] a;
+      a = nullptr;
   \end{lstlisting}
 \end{frame}
 

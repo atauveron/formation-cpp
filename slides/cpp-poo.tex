@@ -127,8 +127,7 @@
   On inclut des fichiers \textit{header} dans les fichiers source ou dans d'autres fichiers \textit{header}.
 \end{frame}
 
-\begin{frame}[fragile]{Séparation en fichiers}
-  \texttt{GaussInt.h}
+\begin{frame}[fragile]{Séparation en fichiers : \texttt{GaussInt.h}}
   \begin{lstlisting}
     #ifndef GaussInt_included
     #define GaussInt_included
@@ -147,8 +146,7 @@
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Séparation en fichiers}
-  \texttt{GaussInt.cpp}
+\begin{frame}[fragile]{Séparation en fichiers : \texttt{GaussInt.cpp}}
   \begin{lstlisting}
     #include "GaussInt.h"
     #include <cmath>
@@ -158,8 +156,7 @@
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Séparation en fichiers}
-  \texttt{GaussInt.cpp} suite
+\begin{frame}[fragile]{Séparation en fichiers : \texttt{GaussInt.cpp}}
   \begin{lstlisting}
     GaussInt& GaussInt::operator= (const GaussInt &a) {
       m_real = a.m_real; m_imag = a.m_imag;
