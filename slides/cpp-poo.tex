@@ -108,6 +108,24 @@
   \end{lstlisting}
 \end{frame}
 
+\begin{frame}[fragile]{Méthodes par défaut}
+  \begin{itemize}
+  \item Définition implicite du constructeur de copie, de l'opérateur d'affectation et du destructeur
+  \item Copie membre à membre
+  \end{itemize}
+
+  \begin{lstlisting}
+    class GaussInt {
+      // ...
+    public:
+      GaussInt (int a=0, int b=0): m_real(a), m_imag(b) {}
+      double norm () { return std::sqrt(m_real*m_real + m_imag*m_imag); }
+    };
+  \end{lstlisting}
+  
+  Implémentation seulement si nécessaire !
+\end{frame}
+
 \begin{frame}{Les possibilités}
   \begin{itemize}
   \item Surcharger les opérateurs

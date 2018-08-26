@@ -18,33 +18,33 @@
 
 \begin{frame}[fragile]{De nouveaux tableaux}
   \begin{lstlisting}
-    std::array<int,5> a;
-    a[1] = 2;
-    size_t a_size = a.size();
+std::array<int,5> a;
+a[1] = 2;
+size_t a_size = a.size();
 
-    a[6] = 4; // runtime error
+a[6] = 4; // runtime error
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{De nouveaux tableaux}
   \begin{lstlisting}
-    std::vector<int> a;
-    a.push_back(10);
-    a[0];
+std::vector<int> a;
+a.push_back(10);
+a[0];
 
-    std::vector<int> b (5);
-    b.pop_back();
-    size_t b_size = b.size(); // now 4
+std::vector<int> b (5);
+b.pop_back();
+size_t b_size = b.size(); // now 4
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Une nouvelle boucle \texttt{for}}
   \begin{lstlisting}
-    std::array<int,5> a;
-    // code
-    for (int &it : a) {
-      // code
-    }
+std::array<int,5> a;
+// code
+for (int &it : a) {
+  // code
+}
   \end{lstlisting}
   \texttt{range for} pour tous les itérables
   \begin{itemize}
@@ -57,8 +57,138 @@
   \texttt{auto} : inférence de type
   
   \begin{lstlisting}[escapechar=ù]
-    for (auto &iterator : ù\textit{iterable}ù) {
-      // code
-    }
+for (auto &iterator : ù\textit{iterable}ù) {
+  // code
+}
   \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Parlons performance}
+  Que se passe-t-il si j'exécute le code ci-dessous ?
+  
+  \begin{lstlisting}
+std::string f () {
+  // code
+}
+
+int main () {
+  std::string x, y;
+  // put some text in x and y
+  std::string a(x);
+  std::string b (x+y);
+  std::string c (f());
+  return 0;
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Parlons performance}
+  Que se passe-t-il si j'exécute le code ci-dessous ?
+  
+  \begin{lstlisting}
+std::vector<std::string> f () {
+  // return a large vector of long strings
+}
+
+int main () {
+  std::vector<std::string> a (f());
+  return 0;
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Parlons performance}
+  Pourquoi faire une copie ?
+
+  $\implies$ Indiquer au compilateur que l'objet affecté est détruit immédiatement après !
+\end{frame}
+
+\begin{frame}[fragile]{\textit{Move semantics}}
+  \begin{itemize}
+  \item Possible depuis \texttt{C++11}
+  \item Utilisation automatique
+  \item Utilisation manuelle avec \texttt{std::move}
+  \end{itemize}
+  
+  \begin{lstlisting}[escapechar=ù]
+ù\textit{new\_var}ù = std::move(ù\textit{old\_var}ù)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{\textit{Move semantics}}
+  \begin{lstlisting}[escapechar=ù]
+class A {
+  // stuff
+public:
+  ~A ();
+  A (const A &);
+  A (A &&); // move constructor
+  A& operator= (const A &);
+  A& operator= (A &&); // move assignment operator
+  // more stuff
+};
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{\textit{Move semantics}}
+  Autant que possible, utiliser les méthodes par défaut !
+\end{frame}
+
+\begin{frame}[fragile]{\textit{Move semantics} en pratique}
+  \begin{lstlisting}
+class blob {
+private:
+  size_t m_size;
+  char *m_data;
+public:
+  blob (): m_size(0), m_data(nullptr) {}
+  ~blob () { delete[] m_data; }
+};
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{\textit{Move semantics} en pratique}
+  \begin{lstlisting}
+blob (const blob& other): m_size(other.m_size) {
+  // copy constructor
+  if (m_size) {
+    m_data = new char[m_size];
+    memcpy(m_data, other.m_data, m_size);
+  } else {
+    m_data = nullptr;
+  }
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{\textit{Move semantics} en pratique}
+  Avec \textit{copy-and-swap} :
+  
+  \begin{lstlisting}
+friend void swap (blob& first, blob& second) {
+  using std::swap;
+  //
+  swap(first.m_size, second.m_size);
+  swap(first.m_data, second.m_data);
+}
+
+blob (blob&& other): blob() {
+  // move constructor
+  swap(*this, other);
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{\textit{Move semantics} en pratique}
+  Avec \textit{copy-and-swap} :
+  
+  \begin{lstlisting}
+blob& operator= (blob other) {
+  // assignment operator
+  swap(*this, other);
+  return *this;
+}
+  \end{lstlisting}
+
+  Une seule définition nécessaire !
 \end{frame}
