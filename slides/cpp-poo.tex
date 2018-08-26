@@ -3,25 +3,24 @@
 \begin{frame}[fragile]{Les \texttt{string}s}
   \texttt{string} : chaîne de caractères améliorée
   \begin{lstlisting}
-    #include <string>
-
-    int main () {
-      std::string str ("some");
-      std::string str2 ("text");
-      str.append(str2);
-      const char *cstr (str.c_str());
-      return 0;
-    }
+#include <string>
+    
+int main () {
+  std::string str ("some");
+  std::string str2 ("text");
+  str.append(str2);
+  const char *cstr (str.c_str());
+  return 0;
+}
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Structures et objets}
-  Définir de nouveau types
   \begin{lstlisting}
-    struct atom {
-      int atomic; // Atomic number
-      int mass; // Mass number
-    };
+struct atom {
+  int atomic; // Atomic number
+  int mass; // Mass number
+};
   \end{lstlisting}
 
   Membres d'une fonction :
@@ -33,30 +32,30 @@
 
 \begin{frame}[fragile]{Structures et objets}
   \begin{lstlisting}
-    atom carbon12;
-    carbon12.atomic = 6;
-    carbon12.mass = 12;
+atom carbon12;
+carbon12.atomic = 6;
+carbon12.mass = 12;
 
-    atom *oxygen16 = new atom;
-    oxygen16->atomic = 8;
-    oxygen16->mass = 16;
+atom *oxygen16 = new atom;
+oxygen16->atomic = 8;
+oxygen16->mass = 16;
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Structures et objets}
   \begin{lstlisting}
-    class Atom {
-    private:
-      int m_atomic;
-      int m_mass;
-    public:
-      Atom(int a, int m) {
-        m_atomic = a; m_mass = m;
-      }
-    };
+class Atom {
+private:
+  int m_atomic;
+  int m_mass;
+public:
+  Atom(int a, int m) {
+    m_atomic = a; m_mass = m;
+  }
+};
 
-    atom carbon12 (6,12);
-    carbon12.m_mass = 13; // Forbidden!
+atom carbon12 (6,12);
+carbon12.m_mass = 13; // Forbidden!
   \end{lstlisting}
 \end{frame}
 
@@ -66,45 +65,45 @@
 
 \begin{frame}[fragile]{Un objet minimaliste}
   \begin{lstlisting}
-    class A {
-    private:
-      // attributes
-      // private methods
-    public:
-      ~A (...) {...} // destructor
-      A (const A &a) {...} // copy constructor
-      A& operator= (const A &a) {...} // copy assignment operator
-      // public methods
-    };
+class A {
+private:
+  // attributes
+  // private methods
+public:
+  ~A (...) {...} // destructor
+  A (const A &a) {...} // copy constructor
+  A& operator= (const A &a) {...} // copy assignment operator
+  // public methods
+};
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Un exemple}
   \begin{lstlisting}
-    class GaussInt {
-    private:
-      int m_real;
-      int m_imag;
-    public:
-      GaussInt (int a=0, int b=0): m_real(a), m_imag(b) {}
-      ~GaussInt () {}
-      GaussInt (GaussInt &a): m_real(a.m_real), m_imag(a.m_imag) {}
-      double norm () { return std::sqrt(m_real*m_real + m_imag*m_imag); }
-    };
+class GaussInt {
+private:
+  int m_real;
+  int m_imag;
+public:
+  GaussInt (int a=0, int b=0): m_real(a), m_imag(b) {}
+  ~GaussInt () {}
+  GaussInt (GaussInt &a): m_real(a.m_real), m_imag(a.m_imag) {}
+  double norm () { return std::sqrt(m_real*m_real + m_imag*m_imag); }
+};
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Un exemple}
   \begin{lstlisting}
-    int main () {
-      GaussInt a;
-      GaussInt b (4,3);
-      GaussInt c (b);
-      GaussInt d = a;
-      std::cout << "Norm of c: " << c.norm() << std::endl;
-      std::cout << "Norm of d: " << d.norm() << std::endl;
-      return 0;
-    }
+int main () {
+  GaussInt a;
+  GaussInt b (4,3);
+  GaussInt c (b);
+  GaussInt d = a;
+  std::cout << "Norm of c: " << c.norm() << std::endl;
+  std::cout << "Norm of d: " << d.norm() << std::endl;
+  return 0;
+}
   \end{lstlisting}
 \end{frame}
 
@@ -115,12 +114,12 @@
   \end{itemize}
 
   \begin{lstlisting}
-    class GaussInt {
-      // ...
-    public:
-      GaussInt (int a=0, int b=0): m_real(a), m_imag(b) {}
-      double norm () { return std::sqrt(m_real*m_real + m_imag*m_imag); }
-    };
+class GaussInt {
+  // ...
+public:
+  GaussInt (int a=0, int b=0): m_real(a), m_imag(b) {}
+  double norm () { return std::sqrt(m_real*m_real + m_imag*m_imag); }
+};
   \end{lstlisting}
   
   Implémentation seulement si nécessaire !
@@ -147,86 +146,86 @@
 
 \begin{frame}[fragile]{Séparation en fichiers : \texttt{GaussInt.h}}
   \begin{lstlisting}
-    #ifndef GaussInt_included
-    #define GaussInt_included
-    class GaussInt {
-    private:
-      int m_real;
-      int m_imag;
-    public:
-      GaussInt (int a=0, int b=0);
-      ~GaussInt ();
-      GaussInt (const GaussInt &);
-      GaussInt& operator= (const GaussInt &);
-      double norm ();
-    };
-    #endif
+#ifndef GaussInt_included
+#define GaussInt_included
+class GaussInt {
+private:
+  int m_real;
+  int m_imag;
+public:
+  GaussInt (int a=0, int b=0);
+  ~GaussInt ();
+  GaussInt (const GaussInt &);
+  GaussInt& operator= (const GaussInt &);
+  double norm ();
+};
+#endif
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Séparation en fichiers : \texttt{GaussInt.cpp}}
   \begin{lstlisting}
-    #include "GaussInt.h"
-    #include <cmath>
-    GaussInt::GaussInt (int a=0, int b=0): m_real(a), m_imag(b) {}
-    GaussInt::~GaussInt () {}
-    GaussInt::GaussInt (const GaussInt &a): m_real(a.m_real), m_imag(a.m_imag) {}
+#include "GaussInt.h"
+#include <cmath>
+GaussInt::GaussInt (int a=0, int b=0): m_real(a), m_imag(b) {}
+GaussInt::~GaussInt () {}
+GaussInt::GaussInt (const GaussInt &a): m_real(a.m_real), m_imag(a.m_imag) {}
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Séparation en fichiers : \texttt{GaussInt.cpp}}
   \begin{lstlisting}
-    GaussInt& GaussInt::operator= (const GaussInt &a) {
-      m_real = a.m_real; m_imag = a.m_imag;
-      return *this;
-    }
-    double GaussInt::norm () {
-      return std::sqrt(m_real*m_real + m_imag*m_imag);
-    }
+GaussInt& GaussInt::operator= (const GaussInt &a) {
+  m_real = a.m_real; m_imag = a.m_imag;
+  return *this;
+}
+double GaussInt::norm () {
+  return std::sqrt(m_real*m_real + m_imag*m_imag);
+}
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Séparation en fichiers}
   \begin{lstlisting}
-    #include <iostream>
-    #include "GaussInt.h"
-    int main () {
-      GaussInt a;
-      GaussInt b (4,3); GaussInt c (b);
-      GaussInt d; d = c;
-      std::cout << "Norm of a: " << a.norm() << std::endl;
-      std::cout << "Norm of c: " << c.norm() << std::endl;
-      std::cout << "Norm of d: " << d.norm() << std::endl;
-      return 0;
-    }
+#include <iostream>
+#include "GaussInt.h"
+int main () {
+  GaussInt a;
+  GaussInt b (4,3); GaussInt c (b);
+  GaussInt d; d = c;
+  std::cout << "Norm of a: " << a.norm() << std::endl;
+  std::cout << "Norm of c: " << c.norm() << std::endl;
+  std::cout << "Norm of d: " << d.norm() << std::endl;
+  return 0;
+}
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Compilation}
   \begin{lstlisting}[language=bash]
-    g++ -Wall -c GaussInt.cpp -o GaussInt.o
-    g++ -Wall -c main.cpp -o main.o
-    g++ -Wall main.o GaussInt.o -o gauss.out
+g++ -Wall -c GaussInt.cpp -o GaussInt.o
+g++ -Wall -c main.cpp -o main.o
+g++ -Wall main.o GaussInt.o -o gauss.out
   \end{lstlisting}
 
   On peut exécuter :
   \begin{lstlisting}
-    ./gauss.out
-    Norm of a: 0
-    Norm of c: 5
-    Norm of d: 5
+./gauss.out
+Norm of a: 0
+Norm of c: 5
+Norm of d: 5
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Les \textit{template}s}
   \begin{lstlisting}
-    template <typename T> bool isPositive (T a) {
-      if (a>=0) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+template <typename T> bool isPositive (T a) {
+  if (a>=0) {
+    return true;
+  } else {
+    return false;
+  }
+}
   \end{lstlisting}
 
   Mot-clé : \texttt{typename} ou \texttt{class}
@@ -234,31 +233,31 @@
 
 \begin{frame}[fragile]{Les \textit{template}s}
   \begin{lstlisting}
-    template <typename T> class complex {
-    private:
-      T m_real;
-      T m_imag;
-    public:
-      complex (const T &a = T(), const T &b = T());
-      ~complex();
-      complex (const complex<T> &);
-      complex& operator= (const complex<T> &);
-      double norm ();
-    };
+template <typename T> class complex {
+private:
+  T m_real;
+  T m_imag;
+public:
+  complex (const T &a = T(), const T &b = T());
+  ~complex();
+  complex (const complex<T> &);
+  complex& operator= (const complex<T> &);
+  double norm ();
+};
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Les \textit{template}s}
   \begin{lstlisting}
-    int n = 4;
-    double x = 2.5;
-    isPositive(n);
-    isPositive(x);
-    isPositive<double>(3.0);
+int n = 4;
+double x = 2.5;
+isPositive(n);
+isPositive(x);
+isPositive<double>(3.0);
   \end{lstlisting}
 
   \begin{lstlisting}
-    complex<double> z (3, 5.5);
+complex<double> z (3, 5.5);
   \end{lstlisting}
 \end{frame}
 

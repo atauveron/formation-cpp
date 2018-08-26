@@ -2,12 +2,12 @@
 
 \begin{frame}[fragile]{Hello world!}
   \begin{lstlisting}
-    #include <iostream>
-    
-    int main () {
-      std::cout << "Hello world!\n";
-      return 0;
-    }
+#include <iostream>
+
+int main () {
+  std::cout << "Hello world!\n";
+  return 0;
+}
   \end{lstlisting}
 \end{frame}
 
@@ -18,44 +18,44 @@
   \end{itemize}
 
   \begin{lstlisting}[language=bash]
-    g++ main.cpp
+g++ main.cpp
   \end{lstlisting}
 
   On peut exécuter :
   \begin{lstlisting}
-    ./a.out
-    Hello world!
+./a.out
+Hello world!
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Compilation}
   \begin{lstlisting}[language=bash]
-    g++ -O3 -Wall main.cpp -o hello
+g++ -O3 -Wall main.cpp -o hello
   \end{lstlisting}
 
   C'est mieux !
   \begin{lstlisting}
-    ./hello
-    Hello world!
+./hello
+Hello world!
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Définition de variables}
   \begin{lstlisting}
-    #include <iostream>
+#include <iostream>
 
-    int main () {
-      int a;
-      int b (0);
-      int c = 0;
-      std::cout << "a is: ";
-      std::cin >> a;
-      b = 2*a;
-      std::cout << "a is: " << a << "\n";
-      std::cout << "b is: " << b << "\n";
-      std::cout << "2*a is: " << 2*a << "\n";
-      return 0;
-    }
+int main () {
+  int a;
+  int b (0);
+  int c = 0;
+  std::cout << "a is: ";
+  std::cin >> a;
+  b = 2*a;
+  std::cout << "a is: " << a << "\n";
+  std::cout << "b is: " << b << "\n";
+  std::cout << "2*a is: " << 2*a << "\n";
+  return 0;
+}
   \end{lstlisting}
 \end{frame}
 
@@ -80,17 +80,17 @@
 
 \begin{frame}[fragile]{Les variables statiques}
   \begin{lstlisting}
-    int main () {
-      int a (2);
-      int b (a);
-      int &c (a);
-      int *d = a;
-      std::cout << "a is: " << a << "\n";
-      std::cout << "b is: " << b << "\n";
-      std::cout << "c is: " << c << "\n";
-      std::cout << "d is: " << d << "\n";
-      return 0;
-    }
+int main () {
+  int a (2);
+  int b (a);
+  int &c (a);
+  int *d = a;
+  std::cout << "a is: " << a << "\n";
+  std::cout << "b is: " << b << "\n";
+  std::cout << "c is: " << c << "\n";
+  std::cout << "d is: " << d << "\n";
+  return 0;
+}
   \end{lstlisting}
 \end{frame}
 
@@ -112,27 +112,27 @@
 
 \begin{frame}[fragile]{Les variables statiques}
   \begin{lstlisting}
-    int main () {
-      int a (2);
-      int b (a);
-      int &c (a);
-      int *d = &a; // l'adresse memoire de a
-      std::cout << "a is: " << a << "\n";
-      std::cout << "b is: " << b << "\n";
-      std::cout << "c is: " << c << "\n";
-      std::cout << "d is: " << *d << "\n"; /* la valeur pointee par d */
-      return 0;
-    }
+int main () {
+  int a (2);
+  int b (a);
+  int &c (a);
+  int *d = &a; // l'adresse memoire de a
+  std::cout << "a is: " << a << "\n";
+  std::cout << "b is: " << b << "\n";
+  std::cout << "c is: " << c << "\n";
+  std::cout << "d is: " << *d << "\n"; /* la valeur pointee par d */
+  return 0;
+}
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Les tableaux}
   \begin{lstlisting}
-    int a [8];
-    char w [256];
-    a[0] = 0;
-    a[1] = 4;
-    std::cout << a[0];
+int a [8];
+char w [256];
+a[0] = 0;
+a[1] = 4;
+std::cout << a[0];
   \end{lstlisting}
 
   \begin{itemize}
@@ -142,8 +142,8 @@
   \end{itemize}
 
   \begin{lstlisting}
-    int *b = a; // Correct
-    a[11] = 32; // Undefined behaviour
+int *b = a; // Correct
+a[11] = 32; // Undefined behaviour
   \end{lstlisting}  
 \end{frame}
 
@@ -154,127 +154,126 @@
   \end{itemize}
 
   \begin{lstlisting}
-    int main () {
-      // maybe some code
-      int a (0);
-      unsigned int b;
-      {
-        double c (.5);
-      }
-      // c doesn't exist here
-      return 0;
-    }
+int main () {
+  // maybe some code
+  int a (0);
+  unsigned int b;
+  {
+    double c (.5);
+  }
+  // c doesn't exist here
+  return 0;
+}
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Les variables dynamiques}
   Deux couples d'opérateurs : \texttt{new} et \texttt{delete}, \texttt{free} et \texttt{malloc}
   \begin{lstlisting}
-      int *a = new int(2);
-      delete a;
-      a = nullptr;
+int *a = new int(2);
+delete a;
+a = nullptr;
   \end{lstlisting}
 
   Pour les tableaux : \texttt{new[]} et \texttt{delete[]}
   \begin{lstlisting}
-      int *a = new int[4];
-      delete[] a;
-      a = nullptr;
+int *a = new int[4];
+delete[] a;
+a = nullptr;
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Les variables dynamiques}
   \begin{lstlisting}
-    int main () {
-      int *a;
-      {
-        int *b = new int(4);
-        a = b;
-      }
-      // b doesn't exist here
-      // but a does
-      std::cout << "a is: " << *a << "\n";
-      delete a;
-      a = nullptr;
-      return 0;
-    }
+int main () {
+  int *a;
+  {
+    int *b = new int(4);
+    a = b;
+  }
+  // b doesn't exist here
+  // but a does
+  std::cout << "a is: " << *a << "\n";
+  delete a;
+  a = nullptr;
+  return 0;
+}
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Les structures de contrôle}
   \begin{lstlisting}[escapechar=ù]
-    if ( ù\textit{condition}ù ) {
-      // code
-    } else if ( ù\textit{condition}ù ) {
-      // code
-    } else {
-      // code
-    }
+if ( ù\textit{condition}ù ) {
+  // code
+} else if ( ù\textit{condition}ù ) {
+  // code
+} else {
+  // code
+}
   \end{lstlisting}
 
   \begin{lstlisting}[escapechar=ù]
-    if ( ù\textit{condition}ù )
-      // single line of code
-    else
-      // single line of code
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Les structures de contrôle}
-  \begin{lstlisting}[escapechar=ù]
-    while ( ù\textit{condition}ù ) {
-      // code
-    }
+if ( ù\textit{condition}ù )
+// single line of code
+else
+// single line of code
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Les structures de contrôle}
   \begin{lstlisting}[escapechar=ù]
-    for ( ù\textit{initialisation}ù ; ù\textit{condition}ù ; ù\textit{increase}ù ) {
-      // code
-    }
+while ( ù\textit{condition}ù ) {
+  // code
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les structures de contrôle}
+  \begin{lstlisting}[escapechar=ù]
+for ( ù\textit{initialisation}ù ; ù\textit{condition}ù ; ù\textit{increase}ù ) {
+  // code
+}
   \end{lstlisting}
 
   \begin{lstlisting}
-    for ( int i=0 ; i<10 ; ++i ) {
-      // code
-    }
+for ( int i=0 ; i<10 ; ++i ) {
+  // code
+}
   \end{lstlisting}
   \begin{lstlisting}
-    for ( n=0, i=100 ; n!=i ; ++n, --i ) {
-      // code
-    }
+for ( n=0, i=100 ; n!=i ; ++n, --i ) {
+  // code
+}
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Les structures de contrôle}
   \begin{lstlisting}[escapechar=ù]
-    switch ( ù\textit{expression}ù ) {
-      case ù\textit{constant}ù:
-        // code
-        break;
-      case ù\textit{constant}ù:
-        // code
-        break;
-      default:
-        //code
-        
-    }
+switch ( ù\textit{expression}ù ) {
+  case ù\textit{constant}ù:
+  // code
+  break;
+  case ù\textit{constant}ù:
+  // code
+  break;
+  default:
+  //code
+}
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Les fonctions}
   Définition :
   \begin{lstlisting}[escapechar=ù]
-    ù\textit{return\_type}ù ù\textit{function\_name}ù (ù\textit{arguments}ù) {
-      // code
-      return ù\textit{return\_value}ù
-    }
+ù\textit{return\_type}ù ù\textit{function\_name}ù (ù\textit{arguments}ù) {
+  // code
+  return ù\textit{return\_value}ù
+}
   \end{lstlisting}
 
   Appel :
   \begin{lstlisting}[escapechar=ù]
-    ù\textit{variable}ù = ù\textit{function\_name}ù (ù\textit{arguments}ù);
+ù\textit{variable}ù = ù\textit{function\_name}ù (ù\textit{arguments}ù);
   \end{lstlisting}
 
   Surcharge de fonctions possible
@@ -282,17 +281,17 @@
 
 \begin{frame}[fragile]{La fonction \texttt{main}}
   \begin{lstlisting}
-    int main (int argc, char **argv) {
-      // code
-      return 0;
-    }
+int main (int argc, char **argv) {
+  // code
+  return 0;
+}
   \end{lstlisting}
  ou bien
   \begin{lstlisting}
-    int main (int argc, char *argv[]) {
-      // code
-      return 0;
-    }
+int main (int argc, char *argv[]) {
+  // code
+  return 0;
+}
   \end{lstlisting}
 \end{frame}
 
@@ -318,28 +317,28 @@
 
   On peut utiliser :
   \begin{lstlisting}
-    using namespace std;
-    
-    int main () {
-      cout << "Hello world!\n";
-      return 0;
-    }
+using namespace std;
+
+int main () {
+  cout << "Hello world!\n";
+  return 0;
+}
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Les \texttt{namespace}s}
   \begin{lstlisting}
-    namespace foo {
-      bool var (true);
-    }
+namespace foo {
+  bool var (true);
+}
 
-    namespace bar {
-      double var (1.0);
-    }
-    int main () {
-      std::cout << "foo::var is:" << foo:var << "\n";
-      std::cout << "bar::var is:" << bar:var << "\n";
-      return 0;
-    }
+namespace bar {
+  double var (1.0);
+}
+int main () {
+  std::cout << "foo::var is:" << foo:var << "\n";
+  std::cout << "bar::var is:" << bar:var << "\n";
+  return 0;
+}
   \end{lstlisting}
 \end{frame}
