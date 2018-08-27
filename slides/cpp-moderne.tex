@@ -116,7 +116,7 @@ int main () {
 \end{frame}
 
 \begin{frame}[fragile]{\textit{Move semantics}}
-  \begin{lstlisting}[escapechar=ù]
+  \begin{lstlisting}
 class A {
   // stuff
 public:
@@ -179,16 +179,107 @@ blob (blob&& other): blob() {
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{\textit{Move semantics} en pratique}
-  Avec \textit{copy-and-swap} :
-  
+\begin{frame}[fragile]{Retour vers les ressources}
+  \begin{itemize}
+  \item Ressource (encapsulée dans un objet) \og{}unique\fg{}
+  \item Interdire la copie ?
+  \end{itemize}
+
   \begin{lstlisting}
-blob& operator= (blob other) {
-  // assignment operator
-  swap(*this, other);
-  return *this;
-}
+class A {
+  // stuff
+public:
+  ~A ();
+  A (const A &) = delete;
+  A (A &&) = delete;
+  A& operator= (const A) = delete;
+};
   \end{lstlisting}
 
-  Une seule définition nécessaire !
+  \textit{delete} utilisable aussi avec l'héritage
+\end{frame}
+
+\begin{frame}[fragile]{Retour vers les ressources}
+  Impossible d'utiliser une \textit{factory} ?
+  
+  \begin{lstlisting}
+class A {
+  // stuff
+public:
+  ~A ();
+  A (const A &) = delete;
+  A (A &&);
+  A& operator= (const A);
+};
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Retour vers les ressources}
+  \begin{lstlisting}
+int main () {
+  A a = factory_for_A();
+  A b, c;
+  b = a; // Forbidden
+  c = std::move(a); // a may end up unusable
+  return 0;
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les \textit{lambda}s}
+  \begin{lstlisting}
+void f (int i) {
+  std::cout << i << ' ';
+}
+
+int main () {
+  std::vector<int> vec;
+  vec.push_back(10);
+  // ...
+  for_each(vec.begin(), vec.end(), f);
+  std::cout << '\n';
+  return 0;
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Un exemple de \textit{lambda}}
+  \begin{lstlisting}
+int main () {
+  std::vector<int> vec;
+  vec.push_back(10);
+  // ...
+  for_each(vec.begin(), vec.end(), [](int i) {
+      std::cout << i << ' ';
+    } );
+  std::cout << '\n';
+  return 0;
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{{Les \textit{lambda}s}}
+  \begin{lstlisting}
+[](double x) -> double {
+  if (x>0) {
+    return 0.1*x;
+  } else {
+    return 0;
+  }
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{{Les \textit{lambda}s}}
+  Capture de variables :
+  \begin{itemize}
+  \item \texttt{[}\textit{var}\texttt{]} pour capturer par valeur
+  \item \texttt{[\&}\textit{var}\texttt{]} pour capturer par référence
+  \item \texttt{[]} pour capturer toutes las variables par valeur
+  \item \texttt{[\&]} pour capturer toutes las variables par référence
+  \item \texttt{[=, \&}\textit{var}\texttt{]}
+  \item \texttt{[\&, }\textit{var}\texttt{]}
+  \end{itemize}
+
+  Un dernier mot-clé : \texttt{mutable}
 \end{frame}
