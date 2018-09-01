@@ -56,8 +56,16 @@ public:
   }
 };
 
+blob create_blob () {
+  char hello [] = "Hello world!";
+  blob res (hello, 13);
+  return std::move(res);
+}
+
 int main ()
 {
-  std::cout << "Hello World!"  << std::endl;
+  blob test;
+  blob hello (create_blob());
+  test = hello;
   return 0;
 }

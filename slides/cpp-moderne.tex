@@ -270,7 +270,7 @@ int main () {
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{{Les \textit{lambda}s}}
+\begin{frame}{{Les \textit{lambda}s}}
   Capture de variables :
   \begin{itemize}
   \item \texttt{[}\textit{var}\texttt{]} pour capturer par valeur
@@ -282,4 +282,64 @@ int main () {
   \end{itemize}
 
   Un dernier mot-clé : \texttt{mutable}
+\end{frame}
+
+\begin{frame}[fragile]{Des pointeurs intelligents}
+  \begin{itemize}
+  \item \texttt{shared\_ptr}
+  \item \texttt{unique\_ptr}
+  \end{itemize}
+
+  \begin{lstlisting}
+#include <iostream>
+#include <memory>
+
+int main () {
+  std::shared_ptr<int> foo (new int(5));
+  std::unique_ptr<int> bar (new int(3));
+  std::cout << *foo << ' ' << *bar << '\n';
+  return 0;
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Des pointeurs intelligents}
+  Que se passe-t-il si j'exécute le code suivant ?
+
+  \begin{lstlisting}
+int main () {
+  int *ptr = new int(5);
+  std::shared_ptr<int> foo (ptr);
+  std::cout << *foo << '\n';
+  {
+    std::shared_ptr<int> bar (ptr)
+  }
+  std::cout << *foo << '\n';
+  return 0;
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Des pointeurs intelligents}
+  Ne pas initialiser de pointeur intelligent à partir d'un pointeur classique !
+
+  Ou mieux, utiliser :
+  \begin{itemize}
+  \item \texttt{shared\_ptr} avec \texttt{make\_shared}
+  \item \texttt{unique\_ptr} avec \texttt{make\_unique} (\texttt{C++14})
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Des pointeurs intelligents}
+  \begin{lstlisting}
+int main () {
+  std::shared_ptr<int> foo = make_shared<int>(5);
+  {
+    std::shared_ptr<int> bar (foo);
+  }
+  std::unique_ptr<int> foobar = make_unique<double>(3.14);
+  std::cout << *foo << ' ' << *foobar << '\n';
+  return 0;
+}
+  \end{lstlisting}
 \end{frame}
