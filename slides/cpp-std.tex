@@ -1,0 +1,55 @@
+% -*- ispell-dictionary: "french" -*-
+
+\begin{frame}{Hello standard library!}
+  Vous rappelez-vous du \textit{namespace} \texttt{std} ?
+
+  Des directives \texttt{\#include <\dots{}>} ?
+\end{frame}
+
+\begin{frame}{Quelques \textit{header}s courants}
+  \begin{itemize}
+  \item \texttt{string} pour gérer les chaînes de caractères
+  \item \texttt{iostream} pour les flux standards d'entrée et de sortie
+  \item \texttt{fstream} pour les opérations d'entrée et de sortie sur des fichiers
+  \item \texttt{cmath} pour les mathématiques
+  \item \texttt{memory} pour les pointeurs intelligents
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Des conteneurs}
+  \begin{itemize}
+  \item \texttt{array}, \texttt{vector}
+  \item \texttt{queue}, \texttt{dequeue}
+  \item \texttt{list}, \texttt{forward\_list}
+  \item \texttt{map}, \texttt{unordered\_map}
+  \item \texttt{set}, \texttt{unordered\_set}
+  \item \texttt{stack}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Du parallélisme avec \texttt{C++11}}
+  \begin{itemize}
+  \item \texttt{thread}
+  \item \texttt{atomic}
+  \item \texttt{mutex}, \texttt{condition\_variable}
+  \item \texttt{future} pour l'asynchronisme
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Les exceptions}
+  \begin{lstlisting}
+#include <iostream>
+#include <exception>
+
+void f () { throw std::runtime_error("an error occured in function f"); }
+int main () {
+  try {
+    f(); std::cout << "No error\n";
+  } catch (std::exception &e) {
+    std::cout << "Error detected: " << e.what() << '\n';
+  }
+  return 0;
+}
+  \end{lstlisting}
+\end{frame}
+

@@ -14,6 +14,9 @@ int main ()
     std::shared_ptr<int> bar (ptr);
     std::cout << *foo << ' ' << *bar << ' ' << *ptr << '\n';
   }
+  /* The objetc pointed to by foo and ptr has benn destroyed
+   * (because bar went out of scope).
+   */
   std::cout << *foo << ' ' << *ptr << '\n';
   return 0;
 }
