@@ -179,6 +179,15 @@ blob (blob&& other): blob() {
   \end{lstlisting}
 \end{frame}
 
+\begin{frame}[fragile]{\textit{Move semantics} en pratique}
+  \begin{lstlisting}
+blob& operator= (blob other) {
+  swap(*this, other);
+  return *this;
+}
+  \end{lstlisting}
+\end{frame}
+
 \begin{frame}[fragile]{Retour vers les ressources}
   \begin{itemize}
   \item Ressource (encapsulée dans un objet) \og{}unique\fg{}
@@ -275,13 +284,11 @@ int main () {
   \begin{itemize}
   \item \texttt{[}\textit{var}\texttt{]} pour capturer par valeur
   \item \texttt{[\&}\textit{var}\texttt{]} pour capturer par référence
-  \item \texttt{[]} pour capturer toutes las variables par valeur
-  \item \texttt{[\&]} pour capturer toutes las variables par référence
+  \item \texttt{[=]} pour capturer toutes les variables par valeur
+  \item \texttt{[\&]} pour capturer toutes les variables par référence
   \item \texttt{[=, \&}\textit{var}\texttt{]}
   \item \texttt{[\&, }\textit{var}\texttt{]}
   \end{itemize}
-
-  Un dernier mot-clé : \texttt{mutable}
 \end{frame}
 
 \begin{frame}[fragile]{Des pointeurs intelligents}

@@ -100,7 +100,7 @@ int main () {
       int a (2);
       int b (a);
       int &c (a);
-      int *d = &a; // l'adresse memoire de a
+      int *d = &a; // address of a
       std::cout << "a is: " << a << "\n";
       std::cout << "b is: " << b << "\n";
       std::cout << "c is: " << c << "\n";
@@ -116,11 +116,11 @@ int main () {
   int a (2);
   int b (a);
   int &c (a);
-  int *d = &a; // l'adresse memoire de a
+  int *d = &a; // address of a
   std::cout << "a is: " << a << "\n";
   std::cout << "b is: " << b << "\n";
   std::cout << "c is: " << c << "\n";
-  std::cout << "d is: " << *d << "\n"; /* la valeur pointee par d */
+  std::cout << "d is: " << *d << "\n"; /* the value pointed to by d */
   return 0;
 }
   \end{lstlisting}
@@ -168,7 +168,7 @@ int main () {
 \end{frame}
 
 \begin{frame}[fragile]{Les variables dynamiques}
-  Deux couples d'opérateurs : \texttt{new} et \texttt{delete}, \texttt{free} et \texttt{malloc}
+  Deux couples d'opérateurs : \texttt{new} et \texttt{delete}, \texttt{malloc} et \texttt{free}
   \begin{lstlisting}
 int *a = new int(2);
 delete a;
@@ -267,7 +267,7 @@ switch ( ù\textit{expression}ù ) {
   \begin{lstlisting}[escapechar=ù]
 ù\textit{return\_type}ù ù\textit{function\_name}ù (ù\textit{arguments}ù) {
   // code
-  return ù\textit{return\_value}ù
+  return ù\textit{return\_value}ù;
 }
   \end{lstlisting}
 
@@ -331,13 +331,12 @@ int main () {
 namespace foo {
   bool var (true);
 }
-
 namespace bar {
   double var (1.0);
 }
 int main () {
-  std::cout << "foo::var is:" << foo:var << "\n";
-  std::cout << "bar::var is:" << bar:var << "\n";
+  std::cout << "foo::var is:" << foo::var << "\n";
+  std::cout << "bar::var is:" << bar::var << "\n";
   return 0;
 }
   \end{lstlisting}

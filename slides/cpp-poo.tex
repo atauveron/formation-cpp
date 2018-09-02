@@ -8,7 +8,7 @@
 int main () {
   std::string str ("some");
   std::string str2 ("text");
-  str.append(str2);
+  str.append(str2); // str = str + str2;
   const char *cstr (str.c_str());
   return 0;
 }
@@ -23,7 +23,7 @@ struct atom {
 };
   \end{lstlisting}
 
-  Membres d'une fonction :
+  Membres d'une structure :
   \begin{itemize}
   \item variables (attributs),
   \item fonctions (méthodes)
@@ -54,7 +54,7 @@ public:
   }
 };
 
-atom carbon12 (6,12);
+Atom carbon12 (6,12);
 carbon12.m_mass = 13; // Forbidden!
   \end{lstlisting}
 \end{frame}
@@ -233,6 +233,16 @@ template <typename T> bool isPositive (T a) {
 
 \begin{frame}[fragile]{Les \textit{template}s}
   \begin{lstlisting}
+int n = 4;
+double x = 2.5;
+isPositive(n);
+isPositive(x);
+isPositive<double>(3.0);
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Les \textit{template}s}
+  \begin{lstlisting}
 template <typename T> class complex {
 private:
   T m_real;
@@ -249,15 +259,9 @@ public:
 
 \begin{frame}[fragile]{Les \textit{template}s}
   \begin{lstlisting}
-int n = 4;
-double x = 2.5;
-isPositive(n);
-isPositive(x);
-isPositive<double>(3.0);
-  \end{lstlisting}
-
-  \begin{lstlisting}
 complex<double> z (3, 5.5);
+complex<int> a;
+complex<int> b (0, 4);
   \end{lstlisting}
 \end{frame}
 
