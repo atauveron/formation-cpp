@@ -279,6 +279,24 @@ switch ( ù\textit{expression}ù ) {
   Surcharge de fonctions possible
 \end{frame}
 
+\begin{frame}[fragile]{Les fonctions}
+  Trois manières de passer un argument :
+  \begin{itemize}
+  \item par valeur
+    \begin{lstlisting}
+int f (int a) {...}
+    \end{lstlisting}
+  \item par référence
+    \begin{lstlisting}
+int f (int &a) {...}
+    \end{lstlisting}
+  \item par pointeur
+    \begin{lstlisting}
+int f (int *a) {...}
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]{La fonction \texttt{main}}
   \begin{lstlisting}
 int main (int argc, char **argv) {
