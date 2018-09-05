@@ -2,7 +2,9 @@
 #include <memory>
 
 /*
- * Warning: for demonstration purpouses only!
+ * Warning: for demonstration purposes only!
+ *
+ * C++11 (or later) must be enabled
  */
 
 int main ()
@@ -14,7 +16,7 @@ int main ()
     std::shared_ptr<int> bar (ptr);
     std::cout << *foo << ' ' << *bar << ' ' << *ptr << '\n';
   }
-  /* The objetc pointed to by foo and ptr has benn destroyed
+  /* The objetc pointed to by foo and ptr has been destroyed
    * (because bar went out of scope).
    */
   std::cout << *foo << ' ' << *ptr << '\n';

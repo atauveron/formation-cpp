@@ -2,6 +2,10 @@
 #include <vector>
 #include <algorithm>
 
+/*
+ * C++11 (or later) must be enabled
+ */
+
 namespace {
   void f (int i) {
     std::cout << i << ' ';

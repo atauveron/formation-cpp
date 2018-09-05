@@ -1,6 +1,10 @@
 #include <iostream>
 #include <cstring>
 
+/*
+ * C++11 (or later) must be enabled
+ */
+
 class blob {
 private:
   size_t m_size;
