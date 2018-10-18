@@ -207,7 +207,27 @@ g++ -Wall -c GaussInt.cpp -o GaussInt.o
 g++ -Wall -c main.cpp -o main.o
 g++ -Wall main.o GaussInt.o -o gauss.out
   \end{lstlisting}
+\end{frame}
 
+\begin{frame}[fragile]{Compilation}
+  \begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[-latex, auto, ultra thick, every text node part/.style={align=center}]
+      \node (exec) {\includegraphics[height=1cm]{text-x-preview.png}\\\texttt{a.out}};
+      \node (main-o) [above left = of exec] {\includegraphics[height=1cm]{text-x-preview.png}\\\texttt{main.o}};
+      \node (main-cpp) [above = of main-o] {\includegraphics[height=1cm]{text-x-preview.png}\\\texttt{main.cpp}};
+      \node (gauss-o) [above right = of exec] {\includegraphics[height=1cm]{text-x-preview.png}\\\texttt{GaussInt.o}};
+      \node (gauss-cpp) [above = of gauss-o] {\includegraphics[height=1cm]{text-x-preview.png}\\\texttt{GaussInt.cpp}};
+      % Flèches
+      \path (main-cpp) edge (main-o);
+      \path (gauss-cpp) edge (gauss-o);
+      \path (main-o) edge (exec);
+      \path (gauss-o) edge (exec);
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Compilation}
   On peut exécuter :
   \begin{lstlisting}
 ./gauss.out
