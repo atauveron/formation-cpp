@@ -18,12 +18,20 @@
 
 \begin{frame}[fragile]{De nouveaux tableaux}
   \begin{lstlisting}
-std::array<int,5> a;
+std::array<int,5> a {};
+// {} to initialize the contents of a    
 a[1] = 2;
 size_t a_size = a.size();
 
-a[6] = 4; // runtime error
+a[6] = 4; // undefined behaviour
+a.at(6) = 4; // runtime error
   \end{lstlisting}
+
+  Accès aux éléments :
+  \begin{itemize}
+  \item \texttt{\textit{array}[\textit{index}]}
+  \item \texttt{\textit{array}.at(\textit{index})} vérifie l'indice
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{De nouveaux tableaux}
@@ -36,6 +44,28 @@ std::vector<int> b (5);
 b.pop_back();
 size_t b_size = b.size(); // now 4
   \end{lstlisting}
+
+  Accès aux éléments :
+  \begin{itemize}
+  \item \texttt{\textit{vector}[\textit{index}]}
+  \item \texttt{\textit{vector}.at(\textit{index})} vérifie l'indice
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Une nouvelle manière de parcourir un conteneur}
+   \begin{lstlisting}
+std::vector<int> a;
+// code
+for (std::vector<int>::iterator it = a.begin() ; it != a.end() ; ++it) {
+  // code
+}
+  \end{lstlisting}
+  Parcours possible pour tous les itérables :
+  \begin{itemize}
+  \item \texttt{begin} et \texttt{end} sur l'objet
+  \item \texttt{operator!=}, \texttt{operator++} et \texttt{operator*} sur l'itérateur
+  \end{itemize}
+  $\implies$ pas seulement les conteneurs séquentiels
 \end{frame}
 
 \begin{frame}[fragile]{Une nouvelle boucle \texttt{for}}
@@ -47,15 +77,10 @@ for (int &it : a) {
 }
   \end{lstlisting}
   \texttt{range for} pour tous les itérables
-  \begin{itemize}
-  \item \texttt{begin} et \texttt{end} sur l'objet
-  \item \texttt{operator!=}, \texttt{operator++} et \texttt{operator*} sur l'itérateur
-  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Le type \texttt{auto}}
-  \texttt{auto} : inférence de type
-  
+  \texttt{auto} : inférence de type  
   \begin{lstlisting}[escapechar=ù]
 for (auto &iterator : ù\textit{iterable}ù) {
   // code
@@ -64,13 +89,11 @@ for (auto &iterator : ù\textit{iterable}ù) {
 \end{frame}
 
 \begin{frame}[fragile]{Parlons performance}
-  Que se passe-t-il si j'exécute le code ci-dessous ?
-  
+  Que se passe-t-il si j'exécute le code ci-dessous ? 
   \begin{lstlisting}
 std::string f () {
   // code
 }
-
 int main () {
   std::string x, y;
   // put some text in x and y
@@ -83,13 +106,11 @@ int main () {
 \end{frame}
 
 \begin{frame}[fragile]{Parlons performance}
-  Que se passe-t-il si j'exécute le code ci-dessous ?
-  
+  Que se passe-t-il si j'exécute le code ci-dessous ?  
   \begin{lstlisting}
 std::vector<std::string> f () {
   // return a large vector of long strings
 }
-
 int main () {
   std::vector<std::string> a (f());
   return 0;
@@ -99,7 +120,6 @@ int main () {
 
 \begin{frame}{Parlons performance}
   Pourquoi faire une copie ?
-
   $\implies$ Indiquer au compilateur que l'objet affecté est détruit immédiatement après !
 \end{frame}
 
@@ -108,8 +128,7 @@ int main () {
   \item Possible depuis \texttt{C++11}
   \item Utilisation automatique
   \item Utilisation manuelle avec \texttt{std::move}
-  \end{itemize}
-  
+  \end{itemize}  
   \begin{lstlisting}[escapechar=ù]
 ù\textit{new\_var}ù = std::move(ù\textit{old\_var}ù)
   \end{lstlisting}
@@ -162,8 +181,7 @@ blob (const blob& other): m_size(other.m_size) {
 \end{frame}
 
 \begin{frame}[fragile]{\textit{Move semantics} en pratique}
-  Avec \textit{copy-and-swap} :
-  
+  Avec \textit{copy-and-swap} : 
   \begin{lstlisting}
 friend void swap (blob& first, blob& second) {
   using std::swap;
@@ -193,7 +211,6 @@ blob& operator= (blob other) {
   \item Ressource (encapsulée dans un objet) \og{}unique\fg{}
   \item Interdire la copie ?
   \end{itemize}
-
   \begin{lstlisting}
 class A {
   // stuff
@@ -204,13 +221,11 @@ public:
   A& operator= (const A) = delete;
 };
   \end{lstlisting}
-
   \textit{delete} utilisable aussi avec l'héritage
 \end{frame}
 
 \begin{frame}[fragile]{Retour vers les ressources}
   Impossible d'utiliser une \textit{factory} ?
-  
   \begin{lstlisting}
 class A {
   // stuff
@@ -296,7 +311,6 @@ int main () {
   \item \texttt{shared\_ptr}
   \item \texttt{unique\_ptr}
   \end{itemize}
-
   \begin{lstlisting}
 #include <iostream>
 #include <memory>
@@ -312,7 +326,6 @@ int main () {
 
 \begin{frame}[fragile]{Des pointeurs intelligents}
   Que se passe-t-il si j'exécute le code suivant ?
-
   \begin{lstlisting}
 int main () {
   int *ptr = new int(5);
@@ -329,7 +342,6 @@ int main () {
 
 \begin{frame}{Des pointeurs intelligents}
   Ne pas initialiser de pointeur intelligent à partir d'un pointeur classique !
-
   Ou mieux, utiliser :
   \begin{itemize}
   \item \texttt{shared\_ptr} avec \texttt{make\_shared}
