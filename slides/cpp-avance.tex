@@ -1,0 +1,51 @@
+% -*- ispell-dictionary: "french" -*-
+
+\begin{frame}[fragile]{Avant d'aller plus loin}
+  Pour activer les optimisations à la compilation :
+  \begin{lstlisting}[language=bash]
+g++ -Ox ...
+  \end{lstlisting}
+
+  \begin{itemize}
+    \item 0 : aucune optimisation
+    \item 1 à 3 : optimisation de plus en plus agressive de la vitesse
+    \item \texttt{s} : optimisation de la taille de l'exécutable
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Les macros}
+  Mais qu'est réellement l'instruction \texttt{\#include <...>} ?
+\end{frame}
+
+\begin{frame}[fragile]{Les macros}
+  \begin{itemize}
+    \item Mécanisme d'exécution d'instructions à la compilation
+    \item Hérité de C
+  \end{itemize}
+
+  \begin{lstlisting}
+#include <cmath>
+
+#define PI 3.1415
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Le mot clé \texttt{constexpr}}
+  \texttt{constexpr} sert à indiquer qu'une expression est évaluable à la compilation.
+
+  \begin{lstlisting}
+constexpr double pi = 3.1415;
+  \end{lstlisting}
+
+  Il implique le qualificatif \texttt{const} pour les variables.  
+\end{frame}
+
+\begin{frame}[fragile]{Le mot clé \texttt{constexpr}}
+  \begin{lstlisting}
+constexpr std::vector<double> axis_x = {1, 0, 0};
+
+constexpr int x = 1;
+constexpr int y = 3;
+constexpr int z = x + 2 * y;
+  \end{lstlisting}
+\end{frame}
