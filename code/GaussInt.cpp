@@ -14,7 +14,7 @@ public:
     m_imag = a.m_imag;
     return *this;
   }
-  double norm () { return std::sqrt(m_real*m_real + m_imag*m_imag); }
+  double norm () const { return std::sqrt(m_real*m_real + m_imag*m_imag); }
 };
 
 int main ()
